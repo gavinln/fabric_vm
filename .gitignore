@@ -1,0 +1,6 @@
+*~
+*.pyc
+*.class
+*.swp
+.vagrant
+.idea/
