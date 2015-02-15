@@ -23,6 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "ubuntu/trusty64"
 
+  # user insecure key
   config.ssh.insert_key = false
 
   # Disable automatic box update checking. If you disable this, then
