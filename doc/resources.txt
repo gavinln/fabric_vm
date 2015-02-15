@@ -20,7 +20,7 @@ Use right tool for right job
 		Fabric, Capistrano
 	
 		
-
+https://sipb.mit.edu/doc/safe-shell/
 
 
 
