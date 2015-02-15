@@ -1,0 +1,27 @@
+Resources
+	http://www.infoq.com/articles/orch-pipelines-jenkins	
+	https://wiki.jenkins-ci.org/display/JENKINS/Build+Pipeline+Plugin
+	http://www.slideshare.net/andrewbayer/seven-habits-of-highly-effective-jenkins-users-2014-edition
+	https://speakerdeck.com/bmuschko/building-a-continuous-delivery-pipeline-with-gradle-and-jenkins
+	http://blog.sonatype.com/2012/09/dont-do-it-wrong-put-that-puppet-in-a-box-and-use-nexus-for-devops/#.VN-Hwy4bnm5
+    https://hynek.me/articles/python-deployment-anti-patterns/
+Use right tool for right job
+	Working with rpm, dep packages
+		Puppet/Chef/Salt/Ansible
+	Working with Java packages
+		Gradle/Maven
+	Working with Python packages
+		Pip (integrates with Puppet)
+	Working with Ruby packages
+		Gem (integrates with Puppet)
+	Working with Node.js packages
+		Npm (integrates with Puppet)
+	SSH Multiplexer - light orchestration
+		Fabric, Capistrano
+	
+		
+
+
+
+
+
