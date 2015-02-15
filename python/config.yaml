@@ -1,0 +1,5 @@
+master:
+  - master1
+workers:
+  - worker0
+  - worker1

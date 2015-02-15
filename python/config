@@ -1,0 +1,8 @@
+# See examples http://www.cyberciti.biz/faq/create-ssh-config-file-on-linux-unix/
+
+Host master1
+    HostName 127.0.0.1
+    User vagrant
+    Port 22
+    IdentityFile ~/.ssh/insecure_private_key
+
