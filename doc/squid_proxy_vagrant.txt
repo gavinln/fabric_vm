@@ -1,0 +1,7 @@
+Install Vagrant plugin
+vagrant plugin install vagrant-proxyconf
+
+Add to Vagrantfile
+config.proxy.http     = "http://gavinln.dyndns.org:3128"
+config.proxy.https    = "http://gavinln.dyndns.org:3128"
+config.proxy.no_proxy = "localhost,127.0.0.1"
