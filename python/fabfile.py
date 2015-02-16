@@ -1,7 +1,5 @@
 from __future__ import print_function
-from fabric.api import run, env, task, roles, settings, local
-
-from fabric import utils
+from fabric.api import run, env, task, roles, local
 
 import os
 import shutil
@@ -18,14 +16,14 @@ env.roledefs['workers'] = config['workers']
 env.use_ssh_config = True
 
 
-@task
+@task(name='host-type')
 @roles('master')
 def host_type():
     ''' display os name for master hosts '''
     run('uname -a')
 
 
-@task
+@task(name='ssh-config')
 def ssh_config():
     ''' set up ssh config file '''
     user_root = os.path.expanduser('~')
@@ -34,7 +32,7 @@ def ssh_config():
     if not os.path.exists(ssh_root):
         os.makedirs(ssh_root)
     if not os.path.exists(ssh_config):
-        shutil.copy('config', ssh_root)
+        shutil.copy(os.path.join(script_dir, 'config'), ssh_root)
     key_file = '~/.ssh/insecure_private_key'
     key_url = 'https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant'
     local('wget -O {0} {1} && chmod 600 {0}'.format(
