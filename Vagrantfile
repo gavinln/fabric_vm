@@ -6,9 +6,12 @@ $script = <<SCRIPT
     # Exit on any errors.
     set -e
 
+    PUPPET_INSTALL='puppet module install \
+      --module_repository http://forge.puppetlabs.com'
+
     # install puppet modules
     (puppet module list | grep acme-ohmyzsh) ||
-        puppet module install -v 0.1.2 acme-ohmyzsh
+        $PUPPET_INSTALL -v 0.1.2 acme-ohmyzsh
 
 SCRIPT
 
@@ -20,11 +23,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
 
-  # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "ubuntu/trusty64"
+  # do not update configured box
+  config.vm.box_check_update = false
 
   # user insecure key
   config.ssh.insert_key = false
+
+  # Every Vagrant virtual environment requires a box to build off of.
+  config.vm.box = "ubuntu/trusty64"
+
+  # Plugin required for proxy: vagrant plugin install vagrant-proxyconf
+  # To remove proxies: unset http_proxy; unset HTTPS_PROXY
+  if Vagrant.has_plugin?("vagrant-proxyconf")
+    config.proxy.http     = "http://192.168.0.100:3128"
+    #config.proxy.https    = "http://gavinln.dyndns.org:3128"
+    config.proxy.no_proxy = "localhost,127.0.0.1"
+  end
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -62,7 +76,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider "virtualbox" do |vb|
     # Don't boot with headless mode
     # vb.gui = true
-  
+
     # Use VBoxManage to customize the VM. For example to change memory:
     vb.customize ["modifyvm", :id, "--memory", "1024"]
   end
@@ -96,7 +110,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "puppet" do |puppet|
     puppet.manifests_path = "puppet/manifests"
     puppet.manifest_file  = "vagrant.pp"
-    # puppet.options = "--verbose --debug"
+    #puppet.options = "--verbose --debug"
+    puppet.facter = {
+      "git_name"    => `git config --get user.name`,
+      "git_email"   => `git config --get user.email`
+    }
   end
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
