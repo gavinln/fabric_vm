@@ -36,51 +36,40 @@ Running
     vagrant ssh
     ```
 
-3. Go to the IPython notebook Docker container directory
+3. Go to the Fabric directory
 
     ```bash
-    cd /vagrant/docker/ipython
+    cd /vagrant/python
     ```
 
-4. Build the IPython notebook Docker container
+4. View the available fabric commands
 
     ```bash
-    sudo fig build notebook
+    fab -l
     ```
 
-5. Run the IPython notebook Docker container
+5. Create alias to view commands from any directory
 
     ```bash
-    sudo fig up -d notebook
+    source env.sh
     ```
 
-6. To view the running containers
+6. Display the list of commands
 
     ```bash
-    sudo fig ps
+    si -l
     ```
 
-7. Open the browser to the IPython notebook page
-http://localhost:PORT_IN_STEP_6/
-
-
-8. To see the logs from the IPython notebook container
+7. Setup the ssh private key login
 
     ```bash
-    sudo fig logs notebook
+    si-ssh-config
     ```
 
-9. To stop display of the logs type `Ctrl+C`.
-
-10. To stop the Docker IPython notebook container
+8. Run fabric task to view host type
 
     ```bash
-    sudo fig kill notebook
-    ```
-11. To remove the notebook Docker container
-
-    ```bash
-    sudo fig rm notebook
+    si-host-type
     ```
 
 Requirements
