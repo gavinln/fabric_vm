@@ -14,8 +14,8 @@ with [Fabric][4], a ssh multiplexers.
 
 [2]: http://releases.ubuntu.com/14.04/
 [3]: http://www.vagrantup.com/
-[4]: https://www.docker.com/
-[5]: http://ipython.org/notebook.html
+[4]: https://TODO/
+[5]: http://TODO
 
 There are [Puppet][6] scripts that automatically install the software when the VM is started.
 
@@ -48,25 +48,39 @@ Running
     fab -l
     ```
 
-5. Create alias to view commands from any directory
+5. Setup zsh to improve fabric prompts
+
+    ```bash
+    /vagrant/scripts/setup_zsh.sh
+    ```
+
+6. Startup zsh
+
+    ```
+    zsh
+    ```
+
+7. To display fabric commands type: fab<tab><tab>
+
+8. Create alias to view commands from any directory
 
     ```bash
     source env.sh
     ```
 
-6. Display the list of commands
+9. Display the list of commands
 
     ```bash
     si -l
     ```
 
-7. Setup the ssh private key login
+10. Setup the ssh private key login
 
     ```bash
     si-ssh-config
     ```
 
-8. Run fabric task to view host type
+11. Run fabric task to view host type
 
     ```bash
     si-host-type
