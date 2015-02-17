@@ -2,7 +2,7 @@
 #
 # Usage: source env.sh
 
-DEPLOY_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+DEPLOY_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 function system-info() {
   fab -f $DEPLOY_DIR/fabfile.py $*
