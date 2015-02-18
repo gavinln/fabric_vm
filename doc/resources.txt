@@ -21,7 +21,8 @@ Use right tool for right job
 	
 		
 https://sipb.mit.edu/doc/safe-shell/
-
+Git push to deploy
+    http://krisjordan.com/essays/setting-up-push-to-deploy-with-git
 
 
 
