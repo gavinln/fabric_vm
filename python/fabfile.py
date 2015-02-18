@@ -1,5 +1,7 @@
 from __future__ import print_function
 from fabric.api import run, env, task, roles, local
+from gitric.api import git_seed, git_reset
+
 
 import os
 import shutil
@@ -37,3 +39,14 @@ def ssh_config():
     key_url = 'https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant'
     local('wget -O {0} {1} && chmod 600 {0}'.format(
         key_file, key_url))
+
+
+@task
+@roles('master')
+def deploy(commit=None):
+    '''an example deployment'''
+    repo_path = '/home/vagrant/test_deploy'
+    git_seed(repo_path, commit)
+    # stop your service here
+    git_reset(repo_path, commit)
+    # restart your service herec
