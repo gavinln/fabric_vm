@@ -35,6 +35,7 @@ def ssh_config():
         os.makedirs(ssh_root)
     if not os.path.exists(ssh_config):
         shutil.copy(os.path.join(script_dir, 'config'), ssh_root)
+        local('chmod 600 {0}'.format(os.path.join(ssh_root, 'config')))
     key_file = '~/.ssh/insecure_private_key'
     key_url = 'https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant'
     local('wget -O {0} {1} && chmod 600 {0}'.format(
