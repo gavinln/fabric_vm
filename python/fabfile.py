@@ -1,6 +1,7 @@
 from __future__ import print_function
-from fabric.api import run, env, task, roles, local
+from fabric.api import run, env, task, roles, local, lcd
 from gitric.api import git_seed, git_reset
+from fabric.contrib.project import rsync_project
 
 
 import os
@@ -44,10 +45,19 @@ def ssh_config():
 
 @task
 @roles('master')
-def deploy(commit=None):
+def deploy_git(commit=None):
     ''' Deployment using git '''
-    repo_path = '/home/vagrant/test_deploy'
+    repo_path = '/home/vagrant/deploy_git'
     git_seed(repo_path, commit)
     # stop your service here
     git_reset(repo_path, commit)
     # restart your service herec
+
+
+@task
+@roles('master')
+def deploy_rsync():
+    ''' Deployment using rsync '''
+    repo_path = '/home/vagrant/deploy_rsync'
+    local_dir = os.path.normpath(os.path.join(script_dir, '..', 'puppet'))
+    rsync_project(repo_path, local_dir=local_dir)
