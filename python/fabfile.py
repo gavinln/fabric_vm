@@ -45,7 +45,7 @@ def ssh_config():
 @task
 @roles('master')
 def deploy(commit=None):
-    '''an example deployment'''
+    ''' Deployment using git '''
     repo_path = '/home/vagrant/test_deploy'
     git_seed(repo_path, commit)
     # stop your service here
