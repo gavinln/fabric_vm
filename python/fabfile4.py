@@ -1,5 +1,6 @@
 from __future__ import print_function
-from fabric.api import run, env, task, roles, local
+from fabric.api import run, env, task, roles, local, hosts
+from fabric.colors import red
 
 import os
 import shutil
@@ -7,7 +8,8 @@ import yaml
 
 from textwrap import dedent
 
-
+# need to make Virtualbox Host-Only Network adapter private
+# See: http://sharepoint.smayes.com/2012/02/virtualbox-unidentified-network/
 powershell_cmd = """powershell -NoProfile -NonInteractive
         \"$secure_password = ConvertTo-SecureString '{1}' -asPlainText -Force;
         $credentials = New-Object Management.Automation.PSCredential('{0}', $secure_password);
@@ -58,34 +60,12 @@ with open(os.path.join(script_dir, "config.yaml"), "r") as f:
 
 env.roledefs['master'] = config['master']
 env.roledefs['workers'] = config['workers']
-env.use_ssh_config = True
 
 
 @task
-def ps_cmd():
-    remote_sh("nearretiree-980",
-            r"Get-Process",
-            ignore_error=False)
-
-
-@task(name='host-type')
-@roles('master')
-def host_type():
-    ''' display os name for master hosts '''
-    run('uname -a')
-
-
-@task(name='ssh-config')
-def ssh_config():
-    ''' set up ssh config file '''
-    user_root = os.path.expanduser('~')
-    ssh_root = os.path.join(user_root, '.ssh')
-    ssh_config = os.path.join(ssh_root, 'config')
-    if not os.path.exists(ssh_root):
-        os.makedirs(ssh_root)
-    if not os.path.exists(ssh_config):
-        shutil.copy(os.path.join(script_dir, 'config'), ssh_root)
-    key_file = '~/.ssh/insecure_private_key'
-    key_url = 'https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant'
-    local('wget -O {0} {1} && chmod 600 {0}'.format(
-        key_file, key_url))
+def ps():
+    print('Executing on %s' % env.host)
+    if env.host:
+        remote_sh(env.host, "Get-Process", ignore_error=False)
+    else:
+        print(red('Host not specified\nUsage: psh -H nearretiree-980 ps'))
