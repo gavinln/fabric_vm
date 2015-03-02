@@ -10,6 +10,7 @@ from textwrap import dedent
 
 # need to make Virtualbox Host-Only Network adapter private
 # See: http://sharepoint.smayes.com/2012/02/virtualbox-unidentified-network/
+# also need to run: winrm quickconfig
 powershell_cmd = """powershell -NoProfile -NonInteractive
         \"$secure_password = ConvertTo-SecureString '{1}' -asPlainText -Force;
         $credentials = New-Object Management.Automation.PSCredential('{0}', $secure_password);
