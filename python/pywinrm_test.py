@@ -10,7 +10,12 @@ password = getpass.getpass(
 
 
 s = winrm.Session(server, auth=(username, password))
-r = s.run_cmd('ipconfig', ['/all'])
+cmd = 'ipconfig'
+params = ['/all']
+
+cmd = 'Powershell -Command "& {Get-Process}"'
+params = []
+r = s.run_cmd(cmd, params)
 print r.status_code
 print r.std_out
 print r.std_err
