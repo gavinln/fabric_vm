@@ -18,10 +18,23 @@ env.user = 'beth'
 # ssh beth@beth-pc2 "cmd /c dir"
 # ssh beth@beth-pc2 "c:\windows\system32\tree.com /A"
 
+# powershell jobs
+# powershell -Command "& { Start-Job -ScriptBlock { gci -Recurse c:\sw }; Receive-Job -Id 1 }"
+# powershell -Command "& { Start-Job -ScriptBlock { gci -Recurse c:\ }; Receive-Job -Id 1 -Keep }"
+# powershell -Command "& {  Get-Job }"
+# Start-Job -ScriptBlock { gci -Recurse c:\ }; Receive-Job -Id 1 -Keep
+
 
 @task
 def dir():
-    run('cmd /c dir', shell=False)
+    ' dir using cmd '
+    run('cmd /c "dir c:\sw"', shell=False)
+
+
+@task
+def dir2():
+    ' dir using powershell '
+    run('powershell -Command "& {gci c:\sw }"', shell=False)
 
 
 @task
