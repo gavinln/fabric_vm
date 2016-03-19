@@ -7,7 +7,8 @@ from fabric.api import env, cd
 from fabric.api import task, hide
 
 
-env.hosts = ['beth-pc2']
+# env.hosts = ['beth-pc2']
+env.hosts = ['192.168.0.137']
 env.user = 'beth'
 
 # fab -f fabfile5.py --port 443 dir
